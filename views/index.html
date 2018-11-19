@@ -1,12 +1,149 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title>DELI-VERY</title>
+		<link <link rel="stylesheet" type="text/css" href="css/style.css">
+		<script src="https://vuejs.org/js/vue.js"></script>
+		<script type="text/javascript" src="js/burgerMenu.js" defer></script>
+	<!--	<script src="js/js_script.js"></script> -->
+		<script src="js/vue_script.js"></script>
+
+		<link rel="stylesheet" href="css/deli-very.css">
+	  <script src="/vue/vue.js" defer></script>
+	  <script src="/socket.io/socket.io.js" defer></script>
+	  <script src="js/deli-very.js" defer></script>
+	<title>Babes and Burgers <3</title>
+	<meta charset="utf-8"/>
 </head>
-<body>
-	<h1>
-		Hello world!
-	</h1>
-	<a href="/map">View map</a>
+
+<body align = "center">
+	<div id="vue-container">
+	<main align = "center">
+		<section id = "header">
+			<h1>Välkommen till Babes and Burgers!</h1>
+			<img src="https://www.wicked-wine.com/wp-content/uploads/2016/11/wineglasses.jpg" id="header-pic">
+		</section>
+	</main>
+
+<section id = "choose-burger">
+		<h2>Vilken burgare är du sugen på idag?</h2>
+		<div>Välj & vraka bland våra favoriter:</div>
+	<br />
+
+	<div class= "grid-table">
+   <div class="burgerA">
+		 <h3>Die Beste burger</h3>
+		 <img src="https://www.readersdigest.ca/wp-content/uploads/sites/14/2015/11/gourmet-burger.jpg" width ="300">
+		 <div>Kan finnas spår av:</div>
+					 <ul class = "list">
+						 <li class = "contains">Gluten</li>
+						 <li class = "contains">Laktos</li>
+						 <li>Lök</li>
+					 </ul>
+	 </div>
+
+   <div class="burgerB">
+		 <h3>Favoriten</h3>
+	 <img src="https://assets.epicurious.com/photos/5580664481ac1e502367643f/2:1/w_1260%2Ch_630/56389654_double-rl-ranch-burger_1x1.jpg" width ="400">
+	 <div>Kan finnas spår av:</div>
+				 <ul class="list">
+					 <li>Gurka</li>
+					 <li>Kött</li>
+					 <li class = "contains">Gluten</li>
+				 </ul>
+	 </div>
+
+   <div class="burgerC">
+		 <h3>LOVE burger</h3>
+	 <img src="https://assets3.thrillist.com/v1/image/2709963/size/gn-gift_guide_variable_c.jpg" width ="300">
+	 <div>Kan finnas spår av:</div>
+					<ul class= "list">
+						<li>Kärlek!</li>
+						<li>Kärlek!!</li>
+						<li>o mera KÄRLEK!!!</li>
+					</ul>
+	 </div>
+ </div>
+</section>
+<section id = menu_section>
+	<br/>
+	<div id = 'menutitle'> {{ burgertext }} </div>
+		 <li v-for="burger in menu" >
+				<div id= "burgername">{{ burger.name }} </div> <br/>
+				<img :src = 'burger.img' class = 'burg_img'> </img>  <br/> {{ burger.kcal}} , {{ burger.price}}
+		 <p class= 'contains' v-if="burger.gluten">Innehåller Gluten!</p>
+		 <p class= 'contains2' v-if="burger.vego">Vegetariskt alternativ!</p>
+			 <label> VÄLJ</label>
+			 <input type="checkbox" id="burger.name" :value="burger.name" v-model="cho_burg" >
+
+	 </li>
+<br/>
+<h3> Din Order: </h3>
+{{ cho_burg.join(' , ') }}
+</section>
+
+		<section id = "contact">
+			<h2> Var ska vi skicka din beställning?</h2>
+			<div>  Ange dina uppgifter nedan:</div>
+
+				<p>
+					<label for="fullname">Full name</label><br>
+    			<input type="text" id="fullname" name="fn" required="required" placeholder="First- and last name" v-model= 'full_name'>
+				</p>
+				<p>
+					<label for="email">E-mail</label><br>
+    			<input type="email" id="email" name="em" required="required" placeholder="E-mail address" v-model= 'email'>
+				</p>
+				<p>
+					<label for="street">Home adress</label><br>
+					<input type="street" id="street" name="s" required="required" placeholder="Home address" v-model= 'home'>
+				</p>
+				<p>
+					<label for="payment">Betalsätt</label><br>
+    			<select id="payment" name="pm" v-model = 'theMoney'>
+        		<option>Mastercard</option>
+        		<option>Visa</option>
+        		<option>Direktbetalning via bank</option>
+        		<option>Natura</option>
+        		<option>Faktura</option>
+    			</select>
+				</p>
+
+			<br />
+			<label for="kön">Välj Kön</label><br>
+			<br />
+
+				<form>
+  				<input id="kön" type="radio" name="gender" value="Kvinna" checked v-model='gender'> Kvinna<br>
+					<input id="kön" type="radio" name="gender" value="Man" v-model='gender'> Man<br>
+					<input id="kön" type="radio" name="gender" value="annan" v-model='gender'> annan <br>
+				</form>
+	</section>
+	<br />
+	<section>
+		<button type="submit"  v-on:click = 'theOrder();toggleshowOrder()'><img src="http://www.dalaporten.se/globalassets/dalaportens-ol---orientering/bilder/2016/burgare.jpg" width= "30"> Skicka iväg din beställning!</button>
+	</section>
+		<br />
+	<h3> Din slutgiltiga beställning:</h3>
+	 <span v-show = "showOrder"> {{theOrder()}}</span>
+	 <br />
+
+
+	{{ message }} <button v-on:click="changeText()">Change text</button>
+		<br />
+
+	<div class="view-box">
+		<div id="dots" v-on:click="addOrder">
+				<div
+					v-for="(order, key) in orders"
+					v-bind:style="{ left: order.details.x + 'px', top: order.details.y + 'px'}">
+					{{key}}
+				</div>
+		</div>
+
+	</div>
+
+	<footer>
+	</footer>
+</div>
 </body>
 </html>

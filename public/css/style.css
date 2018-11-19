@@ -1,0 +1,107 @@
+/*kommentar*/
+
+@import 'https://fonts.googleapis.com/css?family=Pacifico|Dosis';
+
+body {
+    font-family: "Courier New";
+    font-size: 120%;
+    color: purple;
+    background: pink;
+}
+section {
+}
+
+.table {
+  width: 10%;
+}
+
+.contains {
+  color: red;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.contains2 {
+  color: green;
+  font-style: italic;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+#choose-burger {
+  background: black;
+  color: white;
+  border: 20px dotted orange;
+}
+
+#contact {
+  border: 10px solid purple;
+}
+
+#header{
+height: 300px;
+overflow: hidden;
+}
+
+h1{
+  position: absolute;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin: 0;
+  top: 17%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#header-pic{
+opacity: 0.5;
+width: 100%;
+
+}
+
+#bottom{
+  margin: 90px;
+}
+button{
+  margin-top: 2%;
+  margin-bottom: 5%;
+  font-weight: bold;
+  font-size: 50%;
+}
+
+button:hover {
+    background: purple;
+     cursor: pointer;
+}
+
+.grid-table{
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: 33% 33% 33%;
+  }
+
+  .burgerA {
+      grid-column: 1;
+  }
+  .burgerB {
+      grid-column: 2;
+  }
+  .burgerC {
+      grid-column: 3;
+  }
+
+.list{
+  text-align: left;
+}
+
+#menutitle{
+  font-size: 200%;
+  font-weight: bold;
+}
+
+#burgername {
+  font-size: 120%;
+  font-weight: bold;}
+
+.burg_img {
+  width: 300px;
+}
