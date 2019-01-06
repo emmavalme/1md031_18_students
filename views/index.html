@@ -5,7 +5,7 @@
 		<script src="https://vuejs.org/js/vue.js"></script>
 		<script type="text/javascript" src="js/burgerMenu.js" defer></script>
 	<!--	<script src="js/js_script.js"></script> -->
-		<script src="js/vue_script.js"></script>
+		<!--	<script src="js/vue_script.js"></script> -->
 
 		<link rel="stylesheet" href="css/deli-very.css">
 	  <script src="/vue/vue.js" defer></script>
@@ -25,7 +25,7 @@
 	</main>
 
 <section id = "choose-burger">
-		<h2>Vilken burgare är du sugen på idag?</h2>
+	<!--	<h2>Vilken burgare är du sugen på idag?</h2>
 		<div>Välj & vraka bland våra favoriter:</div>
 	<br />
 
@@ -62,24 +62,25 @@
 						<li>o mera KÄRLEK!!!</li>
 					</ul>
 	 </div>
- </div>
-</section>
-<section id = menu_section>
+ </div>-->
+
 	<br/>
 	<div id = 'menutitle'> {{ burgertext }} </div>
-		 <li v-for="burger in menu" >
+	<div class = wrapper>
+		 <li v-for="(burger, key) in menu" :key="key">
 				<div id= "burgername">{{ burger.name }} </div> <br/>
 				<img :src = 'burger.img' class = 'burg_img'> </img>  <br/> {{ burger.kcal}} , {{ burger.price}}
 		 <p class= 'contains' v-if="burger.gluten">Innehåller Gluten!</p>
 		 <p class= 'contains2' v-if="burger.vego">Vegetariskt alternativ!</p>
 			 <label> VÄLJ</label>
 			 <input type="checkbox" id="burger.name" :value="burger.name" v-model="cho_burg" >
-
 	 </li>
+ </div>
+ </section>
 <br/>
 <h3> Din Order: </h3>
 {{ cho_burg.join(' , ') }}
-</section>
+
 
 		<section id = "contact">
 			<h2> Var ska vi skicka din beställning?</h2>
@@ -93,10 +94,10 @@
 					<label for="email">E-mail</label><br>
     			<input type="email" id="email" name="em" required="required" placeholder="E-mail address" v-model= 'email'>
 				</p>
-				<p>
+				<!--<p>
 					<label for="street">Home adress</label><br>
 					<input type="street" id="street" name="s" required="required" placeholder="Home address" v-model= 'home'>
-				</p>
+				</p> -->
 				<p>
 					<label for="payment">Betalsätt</label><br>
     			<select id="payment" name="pm" v-model = 'theMoney'>
@@ -107,6 +108,16 @@
         		<option>Faktura</option>
     			</select>
 				</p>
+				<h2> Klicka in vart du bor: </h2>
+				<a href="/dispatcher" target="_blank">Open dispatcher in new window</a>.
+				<div class="view-box">
+					<div id="dots" v-on:click="setLocation">
+							<div
+								v-bind:style="{left: location.x + 'px', top: location.y + 'px'}">
+								T
+							</div>
+					</div>
+				</div>
 
 			<br />
 			<label for="kön">Välj Kön</label><br>
@@ -120,7 +131,7 @@
 	</section>
 	<br />
 	<section>
-		<button type="submit"  v-on:click = 'theOrder();toggleshowOrder()'><img src="http://www.dalaporten.se/globalassets/dalaportens-ol---orientering/bilder/2016/burgare.jpg" width= "30"> Skicka iväg din beställning!</button>
+		<button type="submit"  v-on:click = 'addOrder();theOrder();toggleshowOrder()'><img src="http://www.dalaporten.se/globalassets/dalaportens-ol---orientering/bilder/2016/burgare.jpg" width= "30"> Skicka iväg din beställning!</button>
 	</section>
 		<br />
 	<h3> Din slutgiltiga beställning:</h3>
@@ -130,17 +141,6 @@
 
 	{{ message }} <button v-on:click="changeText()">Change text</button>
 		<br />
-
-	<div class="view-box">
-		<div id="dots" v-on:click="addOrder">
-				<div
-					v-for="(order, key) in orders"
-					v-bind:style="{ left: order.details.x + 'px', top: order.details.y + 'px'}">
-					{{key}}
-				</div>
-		</div>
-
-	</div>
 
 	<footer>
 	</footer>

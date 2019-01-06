@@ -79,6 +79,14 @@ button:hover {
   grid-template-columns: 33% 33% 33%;
   }
 
+.wrapper {
+  display: grid;
+  grid-gap: 2em;
+  grid-template-columns: repeat(3,1fr);
+  grid-template-rows: auto auto auto auto;
+  justify-content: space-evenly;
+}
+
   .burgerA {
       grid-column: 1;
   }

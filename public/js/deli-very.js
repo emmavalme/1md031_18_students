@@ -8,16 +8,18 @@ var vm = new Vue({
   el: '#vue-container',
   data: {
     orders: {},
-    message: "hello burgers",
+    message: "hello burgers!!!",
     burgertext: "HEJ, Vilken burgare är du sugen på idag?",
     menu: food,
     cho_burg: [],
     full_name: [],
     email: [],
-    home: [],
+    /*home: [],*/
     theMoney: [],
     gender: [],
+    location: {x: 0, y: 0},
     showOrder: false,
+    details: {},
     /*food1: [ {
           name:'Die Beste Burger',
           price: '75kr',
@@ -64,15 +66,23 @@ var vm = new Vue({
       var lastOrder = Object.keys(this.orders).reduce(function (last, next) {
         return Math.max(last, next);
       }, 0);
-      return lastOrder + 1;
+      /*return lastOrder + 1;*/
+      return "T";
     },
-    addOrder: function (event) {
+    setLocation: function (ev) {
       var offset = {x: event.currentTarget.getBoundingClientRect().left,
                     y: event.currentTarget.getBoundingClientRect().top};
+       this.location.x = event.clientX - 10 - offset.x;
+       this.location.y = event.clientY - 10 - offset.y;
+    },
+    addOrder: function (event) {
+      var theBurger = " " + this.cho_burg;
+      var theCustomer = " " + this.full_name + ", " + this.email;
+      var locx = " X: " + this.location.x;
+      var locy = " Y: " + this.location.y;
       socket.emit("addOrder", { orderId: this.getNext(),
-                                details: { x: event.clientX - 10 - offset.x,
-                                           y: event.clientY - 10 - offset.y },
-                                orderItems: ["Beans", "Curry"]
+                                details: {x: locx, y: locy},
+                                orderItems: [ locx, locy, theBurger, theCustomer]
                               });
     },
 
@@ -84,12 +94,14 @@ var vm = new Vue({
     },
    theOrder (){
      var order = [
-       {'theOrder': ' ' + this.cho_burg,
+       {'burgers': ' ' + this.cho_burg,
         'name': ' ' +this.full_name,
         'gender': ' ' +this.gender,
         'email': ' ' +this.email,
-        'home': ' ' +this.home,
+        /*'home': ' ' +this.home,*/
         'money': ' ' +this.theMoney,
+        'locationx': ' '+ this.location.x,
+        'locationy': ' '+ this.location.y
       }]
       console.log(order);
       return order;
