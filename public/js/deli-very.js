@@ -20,6 +20,7 @@ var vm = new Vue({
     location: {x: 0, y: 0},
     showOrder: false,
     details: {},
+    orderNum: 0,
     /*food1: [ {
           name:'Die Beste Burger',
           price: '75kr',
@@ -69,20 +70,24 @@ var vm = new Vue({
       /*return lastOrder + 1;*/
       return "T";
     },
+    getNextDisp: function () {
+      this.orderNum = this.orderNum + 1
+      return this.orderNum;
+    },
     setLocation: function (ev) {
-      var offset = {x: event.currentTarget.getBoundingClientRect().left,
-                    y: event.currentTarget.getBoundingClientRect().top};
-       this.location.x = event.clientX - 10 - offset.x;
-       this.location.y = event.clientY - 10 - offset.y;
+      var offset = {x: ev.currentTarget.getBoundingClientRect().left,
+                    y: ev.currentTarget.getBoundingClientRect().top};
+       this.location.x = ev.clientX - 10 - offset.x;
+       this.location.y = ev.clientY - 10 - offset.y;
     },
     addOrder: function (event) {
       var theBurger = " " + this.cho_burg;
       var theCustomer = " " + this.full_name + ", " + this.email;
-      var locx = " X: " + this.location.x;
-      var locy = " Y: " + this.location.y;
-      socket.emit("addOrder", { orderId: this.getNext(),
+      var locx = this.location.x;
+      var locy = this.location.y;
+      socket.emit("addOrder", { orderId: this.getNextDisp(),
                                 details: {x: locx, y: locy},
-                                orderItems: [ locx, locy, theBurger, theCustomer]
+                                orderItems: [theBurger, theCustomer]
                               });
     },
 
